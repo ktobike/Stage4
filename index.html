@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Path@Penn — Registration (Opening Screen)</title>
+  <style>
+    :root{
+
+      --bg:#f6f7fb; --card:#ffffff; --ink:#0f172a; --sub:#475569;
+      --brand:#1d4ed8; --brand-ink:#ffffff; --muted:#e2e8f0; --ok:#16a34a; --warn:#ea580c; --danger:#dc2626;
+      --chip-bg:#fff; --chip-border:#dbe2ea;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+    .phone{max-width:420px;margin:0 auto;padding:16px}
+
+    /* Header */
+    .header{display:flex;align-items:center;justify-content:space-between}
+    .logo{font-weight:800;letter-spacing:.2px}
+    .term{padding:2px 10px;border-radius:999px;background:#e0f2fe;color:#0369a1;font-size:12px}
+
+    /* Search */
+    .search{margin:14px 0}
+    .search label{display:block;font-size:12px;color:var(--sub);margin-bottom:6px}
+    .search .row{display:flex;gap:8px}
+    input[type="search"]{flex:1;padding:12px;border:1px solid var(--muted);border-radius:12px;background:#fff}
+    button.primary{padding:12px 16px;border:none;border-radius:12px;background:var(--brand);color:var(--brand-ink);font-weight:700}
+
+    /* Filter chips */
+    .filters{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 12px}
+    .chip{padding:8px 12px;border:1px solid var(--chip-border);border-radius:999px;font-size:14px;background:var(--chip-bg)}
+
+    /* Results */
+    .results .card{background:var(--card);border:1px solid var(--muted);border-radius:16px;padding:12px;margin-bottom:12px;box-shadow:0 1px 1px rgba(0,0,0,.04)}
+    .code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-weight:700}
+    .card h3{margin:0 0 6px 0;font-size:16px}
+    .meta{font-size:12px;color:var(--sub);display:flex;gap:12px;flex-wrap:wrap}
+    .badge{padding:2px 8px;border-radius:999px;font-size:12px;border:1px solid var(--muted);background:#fff}
+    .badge.open{background:#ecfdf5;color:#065f46;border-color:#bbf7d0}
+    .badge.wait{background:#fff7ed;color:#9a3412;border-color:#fed7aa}
+    .badge.conflict{background:#fef2f2;color:#991b1b;border-color:#fecaca}
+    .schedule{margin-top:8px;border-top:1px dashed var(--muted);padding-top:8px;font-size:12px;color:var(--sub)}
+    .actions{display:flex;gap:8px;margin-top:10px}
+    button.secondary{padding:10px 12px;border:1px solid var(--muted);background:#fff;border-radius:10px;font-weight:600}
+
+    /* Sticky Selected Bar */
+    .selected-bar{position:sticky;bottom:0;left:0;right:0;max-width:420px;margin:12px auto 0 auto;background:var(--card);border:1px solid var(--muted);border-radius:14px;padding:10px;box-shadow:0 -3px 12px rgba(0,0,0,.08)}
+    .selected-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+    .pillwrap{display:flex;gap:6px;flex-wrap:wrap}
+    .pill{font-size:12px;border:1px solid var(--muted);border-radius:999px;padding:6px 8px;background:#fff}
+    .pill.conflict{border-color:#fecaca;background:#fff5f5;color:#991b1b}
+
+    /* Touch target accessibility */
+    button,input{min-height:44px}
+    a{color:inherit}
+  </style>
+</head>
+<body>
+  <main class="phone" role="main">
+    <header class="header" aria-label="App header">
+      <div class="logo"><a href="#" aria-label="Home">Path@Penn</a></div>
+      <span class="term" aria-label="Term">Spring 2026</span>
+    </header>
+
+    <section class="search" aria-labelledby="search-label">
+      <label id="search-label" for="q">Search courses</label>
+      <div class="row">
+        <input id="q" type="search" placeholder="e.g., CIS 2400 or Algorithms" aria-label="Search courses" />
+        <button class="primary" type="button" aria-label="Search">Search</button>
+      </div>
+      <div class="filters" role="group" aria-label="Filters">
+        <button class="chip" aria-pressed="false">Open seats</button>
+        <button class="chip" aria-pressed="false">No conflicts</button>
+        <button class="chip" aria-pressed="false">After 10am</button>
+        <button class="chip" aria-pressed="false">M/W/F</button>
+      </div>
+    </section>
+
+    <section class="results" aria-live="polite">
+      <!-- Card: No conflict example -->
+      <article class="card" aria-label="CIS 2400 Computer Architecture">
+        <h3><span class="code">CIS 2400</span> Computer Architecture</h3>
+        <div class="meta">
+          <span>Instr: B. Lee</span>
+          <span>Credits: 1.0</span>
+          <span class="badge open">Open</span>
+          <span>Campus: UP</span>
+        </div>
+        <div class="schedule">
+          Tue/Thu 12:00–1:30 PM · Towne 100 · <strong>No conflicts</strong>
+        </div>
+        <div class="actions">
+          <button class="secondary" type="button" aria-label="View details for CIS 2400">Details</button>
+          <button class="primary" type="button" aria-label="Add CIS 2400">Add</button>
+        </div>
+      </article>
+
+      <!-- Card: Conflict example -->
+      <article class="card" aria-label="NETS 1500 Market & Social Systems">
+        <h3><span class="code">NETS 1500</span> Market &amp; Social Systems</h3>
+        <div class="meta">
+          <span>Instr: M. Kearns</span>
+          <span>Credits: 1.0</span>
+          <span class="badge wait">Waitlist</span>
+          <span class="badge conflict" title="Conflicts with PHYS 0151">Conflicts: PHYS 0151</span>
+        </div>
+        <div class="schedule">
+          Mon/Wed 10:15–11:45 AM · Towne 313 · <strong>Overlaps PHYS 0151 recitation</strong>
+        </div>
+        <div class="actions">
+          <button class="secondary" type="button">Resolve conflict</button>
+          <button class="primary" type="button">Add</button>
+        </div>
+      </article>
+
+      <!-- Card: Another open course -->
+      <article class="card" aria-label="STAT 4300 Probability">
+        <h3><span class="code">STAT 4300</span> Probability</h3>
+        <div class="meta">
+          <span>Instr: TBD</span>
+          <span>Credits: 1.0</span>
+          <span class="badge open">Open</span>
+        </div>
+        <div class="schedule">
+          Tue/Thu 3:30–5:00 PM · DRLB A1 · <strong>No conflicts</strong>
+        </div>
+        <div class="actions">
+          <button class="secondary" type="button">Details</button>
+          <button class="primary" type="button">Add</button>
+        </div>
+      </article>
+    </section>
+
+    <!-- Sticky Selected Bar showing live conflict awareness -->
+    <aside class="selected-bar" aria-label="Selected this term">
+      <div class="selected-head">
+        <strong>Selected this term (2)</strong>
+        <span class="badge" title="All good">No conflicts</span>
+      </div>
+      <div class="pillwrap">
+        <span class="pill">CIS 2400 · T/Th 12–1:30</span>
+        <span class="pill conflict" title="Overlaps NETS 1500">PHYS 0151 · M/W 10–11</span>
+      </div>
+    </aside>
+  </main>
+</body>
+</html>
